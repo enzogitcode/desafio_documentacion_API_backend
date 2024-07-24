@@ -3,6 +3,12 @@ const UserRepository = require('../repositories/user.repository')
 
 class UserController {
     async register(req, res) {
+        let userData= req.body
+        try {
+            
+        } catch (error) {
+            
+        }
     }
     async login({ email, password }) {
         let userData = req.body
@@ -18,7 +24,7 @@ class UserController {
             }
             res.redirect('api/users/profile')
         } catch (error) {
-
+            res.json(error)
         }
 
     }
