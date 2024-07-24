@@ -1,16 +1,18 @@
 const express= require('express')
-const router= express.Router()
-const CartController= require('../controllers/cart.controller')
-const cartController= new CartController()
+const router = express.Router()
+const CartController= require( '../controllers/cart.controller')
+const cartController = new CartController
 
+//funcionan
 router.get("/:cid", cartController.getCartById)
 router.post("/", cartController.newCart)
 router.delete("/:cid", cartController.clearCart)
-router.post("/:cid/products/:pid", cartController.addProduct)
+router.post("/:cid/products/:pid", cartController.addProducts)
 //no funcionan
-router.delete("/:cid/products/:pid", cartController.deleteProductById)
-router.put("/:cid", cartController.updateProductById)
-router.put("/:cid/products/:pid", cartController.updateQuantity)
+router.delete("/:cid/products/:pid", cartController.deleteProduct) //no elimina el producto
+
+router.put("/:cid", cartController.updateCart) //me da un producto como null
+router.put("/:cid/products/:pid", cartController.updateQuantity) //no termina el request
 
 router.post("/:cid/purchase", cartController.purchase)
 

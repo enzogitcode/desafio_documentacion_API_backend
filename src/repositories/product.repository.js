@@ -1,4 +1,5 @@
 const ProductModel = require("../models/product.model")
+const codigoMixto = require('../utils/randomcode')
 
 class ProductRepository {
     async getProducts() {
@@ -26,7 +27,7 @@ class ProductRepository {
     }
     async addProduct({ title, description, price, img, code, stock, category, thumbnails }) {
         try {
-            if (!title || !description || !price || !code || !stock || !category) {
+            if (!title || !description || !price || !stock || !category) {
                 console.log("Todos los campos son obligatorios");
                 return;
             }
@@ -43,7 +44,7 @@ class ProductRepository {
                 description,
                 price,
                 img,
-                code,
+                code: codigoMixto,
                 stock,
                 category,
                 status: true,
@@ -52,6 +53,7 @@ class ProductRepository {
 
             await newProduct.save();
 
+            console.log(newProduct)
             return newProduct;
 
         } catch (error) {

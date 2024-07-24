@@ -1,55 +1,106 @@
-const ProductRepository= require("../repositories/product.repository")
-const productRepository = new ProductRepository()
-class ProductController {
-    async getProducts(req, res) {
+const CartModel= require( "../models/cart.model")
+const CartRepository= require("../repositories/cart.repository")
+const cartRepository = new CartRepository()
+class CartController {
+    async newCart(req, res) {
         try {
-            const products = await productRepository.getProducts();
-            res.json(products)
+            const newCart = await cartRepository.createCart()
+            res.json(newCart)
+            console.log("Nuevo carrito creado")
         } catch (error) {
+            console.log("error al crear el carrito", error)
             res.json(error)
+        }
+    }
+    async addProducts(req, res) {
+
+        const productId = req.params.pid;
+
+        const cartId = req.params.cid;
+
+        const quantity = req.body.quantity || 1;
+
+        try {
+
+            const cart = await cartRepository.addProducts(
+
+                cartId,
+
+                productId,
+
+                quantity
+
+            );
+
+            res.json(cart);
+
+        } catch (error) {
+
+            console.log("Error en addProducts del controlador", error);
+
+            res.status(500).json({ error: error.message });
+
+        }
+    }
+
+    async deleteProduct(req, res) {
+        const cartId = req.params.cid
+        const productId = req.params.pid
+        try {
+            const cart = await cartRepository.getCartById(cartId, productId)
+            res.json(cart)
+        } catch (error) {
             console.log(error)
         }
 
     }
-    async getProductById(req, res) {
-        let productId = req.params.pid
+    async getCartById(req, res) {
+        const cartId = req.params.cid
         try {
-            const product = await productRepository.getProductById(productId)
-            res.json(product)
-        } catch (error) {
-            res.json(error)
-        }
-    }
-    async addProduct(req, res) {
-        const newProduct = req.body
-        try {
-            const product = await productRepository.addProduct(newProduct)
-            res.json(product)
+            const cart = await cartRepository.getCartById(cartId)
+            if (!cart) {
+                res.json("No existe un carrito con ese Id")
+            }
+            res.json(cart)
 
         } catch (error) {
-            res.json(error)
-            console.log(error)
-        }
-    }
-    async updateProductById(req, res) {
-        try {
-            let productId = req.params.pid
-            let newDataProduct = req.body
-            const updatedProduct = await productRepository.updateProduct(productId, newDataProduct)
-            res.json(updatedProduct)
-        } catch (error) {
             console.log(error)
             res.json(error)
         }
     }
-    async deleteProductById(req, res) {
-        let productId = req.params.pid
+    async updateCart(req, res) {
+        const cartId = req.params.cid
         try {
-            const deletedProduct = await productRepository.deleteProductById(productId)
-            res.json(deletedProduct)
+            const cart = await cartRepository.updateCart(cartId)
+            res.json(cart)
         } catch (error) {
-            res.json(error)
+            console.log(error)
         }
     }
+    async updateQuantity(req, res) {
+        const cartId = req.params.cid
+        const updatedProducts = req.body;
+        try {
+            const updatedCart = await cartRepository.updateProductQuantity(cartId, updatedProducts);
+            res.json(updatedCart);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async clearCart(req, res) {
+        const cartId = req.params.cid
+        try {
+            const cart = await cartRepository.clearCart(cartId)
+            if (!cart) {
+                res.json("No existe un carrito con ese Id")
+            }
+            res.json("carrito eliminado")
+        } catch (error) {
+            console.log("no se pudo vaciar el carrito", error)
+        }
+
+    }
+    async purchase() { }
 }
-module.exports = ProductController
+module.exports= CartController
+
