@@ -6,6 +6,7 @@ require('./database')
 
 const productRouter= require('./routes/product.router')
 const cartRouter= require('./routes/cart.router')
+const swaggerJSDoc = require('swagger-jsdoc')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,3 +17,17 @@ app.use('/api/carts', cartRouter)
 //app.use('/api/users', userRouter)
 
 app.listen(port, () => { console.log(`Escuchando el puerto ${port}`); })
+
+const swaggerJSDoc= require('swagger-jsdoc')
+const swaggerUiExpress= require ('swagger-ui-express')
+
+const swaggerOptions= {
+definition: {
+    openapi: "3.0.1",
+    info: {
+        title: "Documentación de Island E-commerce",
+        description: "App de el e-commerce líder en venta de artículos electrónicos y soluciones informáticas"
+    }
+},
+apis: [""]
+}
