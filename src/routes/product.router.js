@@ -5,8 +5,8 @@ const productController = new ProductController()
 
 router.get('/', productController.getProducts)
 router.get("/:pid", productController.getProductById)
-router.put("/:pid", productController.updateProductById)
 router.post ("/", productController.addProduct)
+router.put("/:pid", productController.updateProductById)
 router.delete("/:pid", productController.deleteProductById)
 
 
