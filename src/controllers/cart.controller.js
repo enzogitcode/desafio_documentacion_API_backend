@@ -1,5 +1,5 @@
-const CartModel= require( "../models/cart.model")
-const CartRepository= require("../repositories/cart.repository")
+const CartModel = require("../models/cart.model")
+const CartRepository = require("../repositories/cart.repository")
 const cartRepository = new CartRepository()
 class CartController {
     async newCart(req, res) {
@@ -47,8 +47,9 @@ class CartController {
         const cartId = req.params.cid
         const productId = req.params.pid
         try {
-            const cart = await cartRepository.getCartById(cartId, productId)
-            res.json(cart)
+            const updatedCart = await cartRepository.deleteProduct(cartId, productId)
+            console.log("Producto eliminado correctamente")
+            res.json(updatedCart)
         } catch (error) {
             console.log(error)
         }
@@ -70,8 +71,9 @@ class CartController {
     }
     async updateCart(req, res) {
         const cartId = req.params.cid
+        const updatedProducts = req.body
         try {
-            const cart = await cartRepository.updateCart(cartId)
+            const cart = await cartRepository.updateCart(cartId, updatedProducts)
             res.json(cart)
         } catch (error) {
             console.log(error)
@@ -79,9 +81,10 @@ class CartController {
     }
     async updateQuantity(req, res) {
         const cartId = req.params.cid
-        const updatedProducts = req.body;
+        const productId = req.params.pid
+        const newQuantity = req.body;
         try {
-            const updatedCart = await cartRepository.updateProductQuantity(cartId, updatedProducts);
+            const updatedCart = await cartRepository.updateProductQuantity(cartId, productId, newQuantity);
             res.json(updatedCart);
         } catch (error) {
             console.log(error)
@@ -94,7 +97,9 @@ class CartController {
             if (!cart) {
                 res.json("No existe un carrito con ese Id")
             }
-            res.json("carrito eliminado")
+            res.json(cart)
+            console.log("Carrito vacío", cart)
+
         } catch (error) {
             console.log("no se pudo vaciar el carrito", error)
         }
@@ -102,5 +107,5 @@ class CartController {
     }
     async purchase() { }
 }
-module.exports= CartController
+module.exports = CartController
 

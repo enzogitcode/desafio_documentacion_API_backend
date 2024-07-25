@@ -31,6 +31,22 @@ paths:
                   $ref: "#components/schemas/Cart"
         "500":
           description: Error interno del servidor     
+
+  ##/api/carts/{uid}:
+  ##Vaciar el carrito
+    delete:
+
+  ##/api/carts/{uid}: 
+    post:
+  
+
+
+  
+
+
+
+
+
 components: 
   schemas: 
     Cart:
