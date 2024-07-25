@@ -4,8 +4,8 @@ const CartController= require( '../controllers/cart.controller')
 const cartController = new CartController
 
 //funcionan
-router.get("/:cid", cartController.getCartById)
 router.post("/", cartController.newCart)
+router.get("/:cid", cartController.getCartById)
 router.delete("/:cid", cartController.clearCart)
 router.post("/:cid/products/:pid", cartController.addProducts)
 //no funcionan
