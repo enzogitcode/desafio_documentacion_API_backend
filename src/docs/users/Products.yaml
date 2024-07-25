@@ -1,9 +1,9 @@
 paths:
-  /api/users:
+  /api/products:
     get:
-      summary: Obtenemos todos los usuarios de la base datos
+      summary: Obtenemos todos los productos de la base datos
       tags: 
-        - Users
+        - Products
       responses: 
         "200":
           description: Se obtiene todos los usuarios correctamente
