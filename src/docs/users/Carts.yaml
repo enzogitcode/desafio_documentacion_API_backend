@@ -32,18 +32,29 @@ paths:
         "500":
           description: Error interno del servidor     
 
+  ##/api/carts/{uid}/products/{uid}:
+  ##agregar un producto  
+    post:
+
+##hasta acá funcionan los métodos
+
+##los siguientes son los que no funcionan
+
+  ##/api/carts/{uid}/products/{uid}:
+  ##actualiza las cantidades del producto
+    put:
+  ##/api/carts/{uid}/products/{uid}:
+  ##elimina el producto del carrito
+    delete:
   ##/api/carts/{uid}:
-  ##Vaciar el carrito
+  ##actualiza el carrito
+    put:
+  ##/api/carts/{uid}:
+  ##vacía el carrito
     delete:
 
-  ##/api/carts/{uid}: 
-    post:
-  
-
 
   
-
-
 
 
 
