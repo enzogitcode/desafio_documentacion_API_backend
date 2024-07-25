@@ -37,7 +37,6 @@ class ProductController {
             let newDataProduct = req.body
             const updatedProduct = await productRepository.updateProduct(productId, newDataProduct)
             res.json(updatedProduct)
-            console.log(updatedProduct)
         } catch (error) {
             res.json(error)
             console.log(error)
