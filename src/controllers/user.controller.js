@@ -26,6 +26,8 @@ class UserController {
                 role
             })
             await newUser.save()
+            req.session.login = true;
+            req.session.user = { ...newUser._doc };
             console.log("Nuevo usuario creado", newUser)
             res.redirect('api/users/profile')
 
@@ -34,7 +36,7 @@ class UserController {
             res.send(error)
         }
     }
-    async login({ email, password }) {
+    async login(req, res) {
         let { email, password } = req.body
         try {
             const user = await UserModel.findOne({ email })
@@ -42,21 +44,29 @@ class UserController {
                 console.log("usuario no encontrado")
                 res.json("usuario no encontrado")
             }
-            const isValid = isValidPassword(password, usuarioEncontrado);
+            const isValid = isValidPassword(password, user);
             if (!isValid) {
                 return res.status(401).send("Contraseña incorrecta");
             }
             res.redirect('api/users/profile')
         } catch (error) {
             res.json(error)
+            console.log(error)
         }
 
     }
-    async profile() {
-        
+    async profile(req, res) {
+        if (!req.session.login) {
+            return res.redirect("/")
+        }
+        res.render("profile", { user: req.session.user });
     }
-    async logout() {
 
+    async logout(req, res) {
+        if (req.session.login) {
+            req.session.destroy();
+        }
+        res.redirect("api/users/login")
     }
     async admin() {
 
