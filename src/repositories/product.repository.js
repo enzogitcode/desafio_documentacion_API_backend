@@ -64,13 +64,12 @@ class ProductRepository {
     async updateProduct(id, updatedProduct) {
         try {
             const product = await ProductModel.findByIdAndUpdate(id, updatedProduct);
-
             if (!product) {
                 console.log("producto no encontrado")
                 return null
             }
-            console.log("producto actualizado")
 
+            console.log("producto actualizado")
             return product
         } catch (error) {
             console.log(error)

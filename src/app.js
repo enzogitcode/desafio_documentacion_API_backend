@@ -17,6 +17,11 @@ app.use('/api/carts', cartRouter)
 
 app.listen(port, () => { console.log(`Escuchando el puerto ${port}`); })
 
+const exphbs= require('express-handlebars')
+app.engine('handlebars', exphbs.engine());
+app.set('view engine', 'handlebars');
+app.set('views', './src/views');
+
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUiExpress = require('swagger-ui-express')
 

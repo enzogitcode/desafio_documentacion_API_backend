@@ -1,0 +1,10 @@
+const express= require('express')
+const router= express.Router()
+const UserController= require('../controllers/user.controller')
+const userController= new UserController()
+
+app.get("/login", userController.login)
+app.post("/login", userController.login)
+app.post("/register", userController.register)
+app.get("/register", userController.register)
+app.get("/profile", userController.profile)

@@ -4,6 +4,7 @@ class UserRepository {
     async getUserByEmail(email) {
         return UserModel.findOne({email})
     }
+    
 }
 
 module.exports= UserRepository

@@ -16,8 +16,8 @@ const productSchema = new mongoose.Schema({
     img: { type: String },
     code: {
         type: String,
-        required: true,
-        unique: true
+        unique: true,
+        required: true
     },
     stock: {
         type: Number,
@@ -41,4 +41,4 @@ const productSchema = new mongoose.Schema({
 //productSchema.plugin(mongoosePaginate)
 const ProductModel = mongoose.model("products", productSchema)
 
-module.exports= ProductModel
+module.exports = ProductModel
