@@ -7,10 +7,10 @@ const cartController = new CartController
 router.post("/", cartController.newCart)
 router.get("/:cid", cartController.getCartById)
 router.post("/:cid/products/:pid", cartController.addProducts)
+router.delete("/:cid/products/:pid", cartController.deleteProduct)
+router.delete("/:cid", cartController.clearCart)
 //no funcionan
-router.delete("/:cid", cartController.clearCart) //no actualiza las cantidades el carrito
 router.put("/:cid/products/:pid", cartController.updateQuantity)
-router.delete("/:cid/products/:pid", cartController.deleteProduct) //no elimina el producto
 
 router.put("/:cid", cartController.updateCart) //me da un producto como null
 

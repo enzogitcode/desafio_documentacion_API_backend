@@ -2,7 +2,7 @@ const CartModel = require('../models/cart.model.js')
 const ProductModel = require('../models/product.model.js')
 
 class CartRepository {
-    async createCart() {
+    async createCart() { //funciona
         try {
             const newCart = new CartModel({ products: [] });
             await newCart.save();
@@ -12,7 +12,8 @@ class CartRepository {
             throw error;
         }
     }
-    async getCartById(cartId) {
+    async getCartById(cartId) { 
+        //funciona
         try {
             const cart = await CartModel.findById(cartId)
             if (!cart) {
@@ -94,7 +95,6 @@ class CartRepository {
                 throw new Error('Carrito no encontrado');
             }
 
-
             const productIndex = cart.products.findIndex(item => item._id.toString() === productId);
 
             if (productIndex !== -1) {
@@ -110,6 +110,7 @@ class CartRepository {
 
         } catch (error) {
             throw new Error("Error al actualizar las cantidades");
+            console.log(error)
         }
 
     }
