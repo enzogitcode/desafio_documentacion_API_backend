@@ -56,9 +56,7 @@ class UserController {
 
     }
     async profile(req, res) {
-        if (!req.session.login) {
-            return res.redirect("/")
-        }
+        
         res.render("profile", { user: req.session.user });
     }
 
