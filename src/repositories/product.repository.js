@@ -4,8 +4,10 @@ const codigoMixto = require('../utils/randomcode')
 class ProductRepository {
     async getProducts() {
         try {
-            const products = await ProductModel.find().lean()
+            const products = await ProductModel.find()
+            
             return products
+
 
         } catch (error) {
             console.log(error)
@@ -14,7 +16,7 @@ class ProductRepository {
     async getProductById(id) {
 
         try {
-            const product = await ProductModel.findById(id).lean()
+            const product = await ProductModel.findById(id)
             if (!product) {
                 console.log("producto no encontrado")
                 return null
@@ -50,7 +52,7 @@ class ProductRepository {
                 status: true,
                 thumbnails: thumbnails || []
             });
-
+            console.log(newProduct.code)
             await newProduct.save();
 
             console.log(newProduct)

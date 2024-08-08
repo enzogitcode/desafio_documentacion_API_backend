@@ -4,7 +4,8 @@ const productRepository = new ProductRepository()
 class ProductController {
     async getProducts(req, res) {
         try {
-            const products = await productRepository.getProducts();
+            const products = await productRepository.getProducts()
+            
             res.json(products)
 
         } catch (error) {

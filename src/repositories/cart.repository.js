@@ -31,7 +31,7 @@ class CartRepository {
 
         try {
 
-            const cart = await CartModel.findById(cartId);
+            const cart = await CartModel.findByIdAndUpdate(cartId);
 
             if (!cart) {
 
@@ -72,14 +72,14 @@ class CartRepository {
 
     async updateCart(cartId, updatedProducts) {
         try {
-            const cart = await CartModel.findById(cartId)
+            const cart = await CartModel.findByIdAndUpdate(cartId)
             if (!cart) {
                 console.log("Carrito no encontrado");
             }
             cart.products = updatedProducts
             cart.markModified("products")
+            await cart.save()
             return cart
-
         } catch (error) {
             console.log("No se pudo actualizar el carrito", error)
             throw error
@@ -91,17 +91,13 @@ class CartRepository {
             const cart = await CartModel.findByIdAndUpdate(cartId);
 
             if (!cart) {
-
                 throw new Error('Carrito no encontrado');
             }
 
             const productIndex = cart.products.findIndex(item => item._id.toString() === productId);
-
             if (productIndex !== -1) {
                 cart.products[productIndex].quantity = newQuantity;
-
                 cart.markModified('products');
-
                 await cart.save();
                 return cart;
             } else {
@@ -109,8 +105,8 @@ class CartRepository {
             }
 
         } catch (error) {
-            throw new Error("Error al actualizar las cantidades");
             console.log(error)
+
         }
 
     }
